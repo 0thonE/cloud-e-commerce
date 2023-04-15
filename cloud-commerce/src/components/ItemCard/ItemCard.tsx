@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import { giphyNoImage } from '@/config/giphy'
 import { Item } from '@/models'
 import { useCartStore } from '@/state'
+import { ItemQuantity } from '../ItemQuantity'
+import { Button } from '@mui/material'
 
 interface Props {
   openCard: Function
@@ -46,27 +48,21 @@ const ItemCard = ({ open, openCard, item = defaultItem }: Props) => {
             <p>{item.description}</p>
             <div className='content-footer'>
               <div className='quantity-items'>
-                <button
-                  className='less-items'
-                  onClick={() => {
-                    if (quantity < 2) return
+                <ItemQuantity
+                  quantity={quantity}
+                  handleDecrement={() => {
+                    if (quantity <= 1) return
                     setQuantity(prev => prev - 1)
                   }}
-                >
-                  -
-                </button>
-                {quantity}
-                <button
-                  className='more-items'
-                  onClick={() => {
+                  handleIncrement={() => {
                     setQuantity(prev => prev + 1)
                   }}
-                >
-                  +
-                </button>
+                />
               </div>
-              <button
+              <Button
                 className='add-cart-btn'
+                variant='contained'
+                color='secondary'
                 onClick={() => {
                   addItem({
                     ...item,
@@ -76,7 +72,7 @@ const ItemCard = ({ open, openCard, item = defaultItem }: Props) => {
                 }}
               >
                 Add to cart
-              </button>
+              </Button>
             </div>
           </div>
         )}

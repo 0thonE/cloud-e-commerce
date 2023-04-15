@@ -3,6 +3,7 @@ import './_ecommerce-page.scss'
 import { ItemCard } from '@/components/ItemCard'
 import { useCartStore } from '@/state'
 import { e_commerce } from '@/assets'
+import { ItemQuantity } from '@/components/ItemQuantity'
 
 const fetchECommerceItems = () => e_commerce.items
 
@@ -14,6 +15,7 @@ const ECommercePage = () => {
     if (openedCard === itemId) return
     setOpenedCard(itemId)
   }
+
   return (
     <div id='ecommerce-page'>
       {items.map((item, index) => (
