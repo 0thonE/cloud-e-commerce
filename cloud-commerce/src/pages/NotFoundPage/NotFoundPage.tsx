@@ -1,4 +1,4 @@
-import { giphy404 } from '@/config'
+import { giphy404 } from '@/config/giphy'
 import { useNavigate } from 'react-router-dom'
 import { useInterval } from '@/hooks'
 

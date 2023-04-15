@@ -19,5 +19,6 @@ export interface CartState {
   addItem: (item: CartItem) => void
   removeItem: (id: string) => void
   clearItems: () => void
+  itemsArray: () => CartItem[]
   updateCartData: (cartBase: CartBase) => void
 }

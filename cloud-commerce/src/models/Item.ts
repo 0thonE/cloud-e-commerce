@@ -9,3 +9,7 @@ export interface Item extends ItemBase {
   price: number
   stock?: number
 }
+
+export interface ECommerceStore {
+  items: Item[]
+}

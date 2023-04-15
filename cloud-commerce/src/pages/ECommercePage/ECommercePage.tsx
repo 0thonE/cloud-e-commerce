@@ -2,31 +2,29 @@ import { useState } from 'react'
 import './_ecommerce-page.scss'
 import { ItemCard } from '@/components/ItemCard'
 import { useCartStore } from '@/state'
+import { e_commerce } from '@/assets'
+
+const fetchECommerceItems = () => e_commerce.items
 
 const ECommercePage = () => {
-  const [items, setItems] = useState(new Array(30).fill(''))
-  const cart = useCartStore(state => state.cart)
-  console.log(Array.from(cart.items.entries()))
+  const [openedCard, setOpenedCard] = useState('')
+  const items = fetchECommerceItems()
+
+  const openCard = (itemId: string) => {
+    if (openedCard === itemId) return
+    setOpenedCard(itemId)
+  }
   return (
-    <>
-      {JSON.stringify(
-        cart,
-        (key, value) => {
-          if (value instanceof Map) {
-            return Array.from(value.entries())
-          } else {
-            return value
-          }
-        },
-        2
-      )}
-      <hr />
-      <div id='ecommerce-page'>
-        {items.map((item, index) => (
-          <ItemCard key={`${index}-${item.id}`} open={index === 6} />
-        ))}
-      </div>
-    </>
+    <div id='ecommerce-page'>
+      {items.map((item, index) => (
+        <ItemCard
+          key={`${index}-${item.id}`}
+          item={item}
+          open={item.id === openedCard}
+          openCard={openCard}
+        />
+      ))}
+    </div>
   )
 }
 

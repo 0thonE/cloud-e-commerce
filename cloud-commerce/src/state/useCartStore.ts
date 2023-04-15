@@ -11,24 +11,27 @@ const initialCart = (): Cart => ({
 })
 
 const useStore = create<CartState>()(
-  immer(set => ({
+  immer((set, get) => ({
     cart: initialCart(),
     addItem: (item: CartItem) =>
-      set(state => {
-        if (state.cart.items) {
-          console.log('first', item)
+      set(({ cart }) => {
+        if (cart.items) {
           item = {
             ...item,
-            quantity: item.quantity + (state.cart.items.get(item.id)?.quantity || 0),
+            quantity: item.quantity + (cart.items.get(item.id)?.quantity || 0),
           }
         }
-        state.cart.items.set(item.id, item)
+        cart.items.set(item.id, item)
       }),
     removeItem: (id: string) =>
-      set(state => {
-        state.cart.items.delete(id)
+      set(({ cart }) => {
+        cart.items.delete(id)
       }),
-    clearItems: () => set(state => (state.cart.items = new Map())),
+    clearItems: () =>
+      set(({ cart }) => {
+        cart.items = new Map()
+      }),
+    itemsArray: () => Array.from(get().cart.items.values()),
     updateCartData: ({
       userName,
       card,
@@ -38,10 +41,10 @@ const useStore = create<CartState>()(
       card: string
       address: string
     }) =>
-      set(state => {
-        if (userName) state.cart.userName = userName
-        if (card) state.cart.card = card
-        if (address) state.cart.address = address
+      set(({ cart }) => {
+        if (userName) cart.userName = userName
+        if (card) cart.card = card
+        if (address) cart.address = address
       }),
   }))
 )
