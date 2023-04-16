@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import './_item-card.scss'
-import classNames from 'classnames'
-import { giphyNoImage } from '@/config/giphy'
-import { Item } from '@/models'
+import { useState } from 'react'
 import { useCartStore } from '@/state'
-import { ItemQuantity } from '../ItemQuantity'
+import { Item } from '@/models'
+import { ItemQuantity } from '@/components'
 import { Button } from '@mui/material'
+import { giphyNoImage } from '@/config'
+import classNames from 'classnames'
+import './_item-card.scss'
 
 interface Props {
   openCard: Function

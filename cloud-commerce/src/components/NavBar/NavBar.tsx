@@ -1,14 +1,8 @@
 import { useState } from 'react'
 import { useCartStore } from '@/state'
-import isEmpty from 'lodash/isEmpty'
-
-import Box from '@mui/material/Box'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
+import { AppBar, Box, IconButton, SwipeableDrawer, Toolbar, Typography } from '@mui/material'
 import { ShoppingCart } from '@mui/icons-material'
+import isEmpty from 'lodash/isEmpty'
 import CheckoutSteps from './CheckoutSteps'
 
 type CartDrawerProps = {

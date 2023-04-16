@@ -1,4 +1,4 @@
-import { Card, CartItem } from '@/models'
+import { CartItem } from '@/models'
 import { Cart, CartState } from '@/models'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'

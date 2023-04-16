@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ItemCard } from '@/components/ItemCard'
+import { ItemCard } from '@/components'
 import { e_commerce } from '@/assets'
 import './_ecommerce-page.scss'
 

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { Cart } from '@/components'
 import { Box, Typography, Stepper, Step, StepLabel, Button, Divider } from '@mui/material'
 import CheckoutForm from './CheckoutForm'
-import { Cart } from '@/components'
 
 const getStepContent = (stepIndex: number) => {
   switch (stepIndex) {
@@ -25,7 +25,7 @@ const getNextButtonText = (stepIndex: number) => {
   }
 }
 
-const CheckoutSteps = props => {
+const CheckoutSteps = () => {
   const [activeStep, setActiveStep] = useState(0)
 
   const handleNext = () => {
