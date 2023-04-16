@@ -4,17 +4,12 @@ import isEmpty from 'lodash/isEmpty'
 
 import Box from '@mui/material/Box'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import Button from '@mui/material/Button'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
-import { ListItemText } from '@mui/material'
-import { Delete, ShoppingCart } from '@mui/icons-material'
+import { ShoppingCart } from '@mui/icons-material'
+import CheckoutSteps from './CheckoutSteps'
 
 type CartDrawerProps = {
   cartOpen: boolean
@@ -22,10 +17,7 @@ type CartDrawerProps = {
 }
 
 const CartDrawer = ({ cartOpen, toggleDrawer }: CartDrawerProps) => {
-  const { items, removeItem } = useCartStore(({ itemsArray, removeItem }) => ({
-    items: itemsArray(),
-    removeItem,
-  }))
+  const items = useCartStore(({ itemsArray }) => itemsArray())
   return (
     <SwipeableDrawer
       anchor='right'
@@ -34,56 +26,7 @@ const CartDrawer = ({ cartOpen, toggleDrawer }: CartDrawerProps) => {
       onOpen={() => toggleDrawer(true)}
     >
       <Box sx={{ width: 500 }} role='cart-drawer'>
-        {isEmpty(items) ? (
-          <div> no items in cart</div>
-        ) : (
-          <>
-            <List
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-evenly',
-                flexFlow: 'column',
-                gap: '1rem',
-              }}
-            >
-              {Array.from(items.values()).map((item, index) => (
-                <ListItem key={`${index}-${item.id}`}>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <ListItemText
-                      sx={{ flexGrow: 1 }}
-                      primary={item.name}
-                      secondary={item.description}
-                    />
-                    <IconButton
-                      sx={{ flexGrow: 0 }}
-                      aria-label='delete-item'
-                      onClick={() => removeItem(item.id)}
-                    >
-                      <Delete />
-                    </IconButton>
-                  </Box>
-                  <Box></Box>
-                </ListItem>
-              ))}
-            </List>
-            <Box sx={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
-              <Divider />
-              <Button
-                sx={{ margin: '1rem', width: 'calc(100% - 2rem)' }}
-                size='large'
-                variant='contained'
-              >
-                Checkout
-              </Button>
-            </Box>
-          </>
-        )}
+        {isEmpty(items) ? <div> no items in cart</div> : <CheckoutSteps />}
       </Box>
     </SwipeableDrawer>
   )

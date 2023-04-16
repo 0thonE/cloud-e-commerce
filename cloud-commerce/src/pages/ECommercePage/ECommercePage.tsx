@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import './_ecommerce-page.scss'
 import { ItemCard } from '@/components/ItemCard'
-import { useCartStore } from '@/state'
 import { e_commerce } from '@/assets'
-import { ItemQuantity } from '@/components/ItemQuantity'
+import './_ecommerce-page.scss'
 
 const fetchECommerceItems = () => e_commerce.items
 
@@ -17,16 +15,18 @@ const ECommercePage = () => {
   }
 
   return (
-    <div id='ecommerce-page'>
-      {items.map((item, index) => (
-        <ItemCard
-          key={`${index}-${item.id}`}
-          item={item}
-          open={item.id === openedCard}
-          openCard={openCard}
-        />
-      ))}
-    </div>
+    <>
+      <div id='ecommerce-page'>
+        {items.map((item, index) => (
+          <ItemCard
+            key={`${index}-${item.id}`}
+            item={item}
+            open={item.id === openedCard}
+            openCard={openCard}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 

@@ -4,10 +4,16 @@ export interface CartItem extends Item {
   quantity: number
 }
 
+export interface Card {
+  cardNumber: string
+  expDate: string
+  cvv: string
+}
+
 export type CartBase = {
-  userName: string
-  card: string
+  username: string
   address: string
+  card: Card
 }
 
 export interface Cart extends CartBase {
@@ -20,5 +26,5 @@ export interface CartState {
   removeItem: (id: string) => void
   clearItems: () => void
   itemsArray: () => CartItem[]
-  updateCartData: (cartBase: CartBase) => void
+  updateCartData: (path: string, value: string | Cart | CartItem | Card) => void
 }

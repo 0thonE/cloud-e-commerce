@@ -1,11 +1,16 @@
-import { CartItem, Item } from '@/models'
+import { Card, CartItem } from '@/models'
 import { Cart, CartState } from '@/models'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
+import ld_set from 'lodash/set'
 
 const initialCart = (): Cart => ({
-  userName: '',
-  card: '',
+  username: '',
+  card: {
+    cardNumber: '',
+    expDate: '',
+    cvv: '',
+  },
   address: '',
   items: new Map(),
 })
@@ -32,19 +37,9 @@ const useStore = create<CartState>()(
         cart.items = new Map()
       }),
     itemsArray: () => Array.from(get().cart.items.values()),
-    updateCartData: ({
-      userName,
-      card,
-      address,
-    }: {
-      userName: string
-      card: string
-      address: string
-    }) =>
+    updateCartData: (path: string, value) =>
       set(({ cart }) => {
-        if (userName) cart.userName = userName
-        if (card) cart.card = card
-        if (address) cart.address = address
+        ld_set(cart, path, value)
       }),
   }))
 )
