@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Cart } from '@/components'
 import { Box, Typography, Stepper, Step, StepLabel, Button, Divider } from '@mui/material'
 import CheckoutForm from './CheckoutForm'
+import { useCartStore } from '@/state'
 
 const getStepContent = (stepIndex: number) => {
   switch (stepIndex) {
@@ -27,6 +28,7 @@ const getNextButtonText = (stepIndex: number) => {
 
 const CheckoutSteps = () => {
   const [activeStep, setActiveStep] = useState(0)
+  const clearItems = useCartStore(({ clearItems }) => clearItems)
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1)
@@ -34,6 +36,10 @@ const CheckoutSteps = () => {
 
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
+
+  const handleFinish = () => {
+    clearItems()
   }
 
   const steps = ['Your Cart', 'Checkout']
@@ -54,7 +60,7 @@ const CheckoutSteps = () => {
             <Typography variant='h5' sx={{ mb: 2 }}>
               Thank you for your order!
             </Typography>
-            <Button variant='contained' color='primary' onClick={handleBack}>
+            <Button variant='contained' color='primary' onClick={handleFinish}>
               Back to Cart
             </Button>
           </Box>
